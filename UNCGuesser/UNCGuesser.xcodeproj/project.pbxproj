@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		030453D52935491600058684 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030453D42935491600058684 /* MapView.swift */; };
+		030453D729354A8000058684 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030453D629354A8000058684 /* Location.swift */; };
 		0386EFD6292D832E002A232A /* UNCGuesserApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0386EFD5292D832E002A232A /* UNCGuesserApp.swift */; };
 		0386EFD8292D832E002A232A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0386EFD7292D832E002A232A /* ContentView.swift */; };
 		0386EFDA292D832F002A232A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0386EFD9292D832F002A232A /* Assets.xcassets */; };
@@ -14,6 +16,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		030453D42935491600058684 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		030453D629354A8000058684 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		0386EFD2292D832E002A232A /* UNCGuesser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UNCGuesser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0386EFD5292D832E002A232A /* UNCGuesserApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UNCGuesserApp.swift; sourceTree = "<group>"; };
 		0386EFD7292D832E002A232A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -51,10 +55,12 @@
 		0386EFD4292D832E002A232A /* UNCGuesser */ = {
 			isa = PBXGroup;
 			children = (
+				030453D629354A8000058684 /* Location.swift */,
 				0386EFD5292D832E002A232A /* UNCGuesserApp.swift */,
 				0386EFD7292D832E002A232A /* ContentView.swift */,
 				0386EFD9292D832F002A232A /* Assets.xcassets */,
 				0386EFDB292D832F002A232A /* Preview Content */,
+				030453D42935491600058684 /* MapView.swift */,
 			);
 			path = UNCGuesser;
 			sourceTree = "<group>";
@@ -138,6 +144,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				0386EFD8292D832E002A232A /* ContentView.swift in Sources */,
+				030453D52935491600058684 /* MapView.swift in Sources */,
+				030453D729354A8000058684 /* Location.swift in Sources */,
 				0386EFD6292D832E002A232A /* UNCGuesserApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
