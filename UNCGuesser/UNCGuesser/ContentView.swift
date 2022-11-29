@@ -23,106 +23,110 @@ struct ContentView: View {
     @State var numGuesses = 0
     @State var shouldHide = false
     @State var locationPlaced = false
+    @State var isGameOver = false
     
     
     
     var body: some View {
-        ZStack {
-            RadialGradient(stops: [
-                .init(color: Color(red: 0.1, green: 0.2, blue: 0.45), location: 0.3),
-                .init(color: Color(red: 0.76, green: 0.15, blue: 0.26), location: 0.3)
-            ], center: .top, startRadius: 200, endRadius: 700)
-            .ignoresSafeArea()
-            
-            VStack {
-                Spacer()
+        NavigationStack{
+            ZStack {
+                RadialGradient(stops: [
+                    .init(color: Color(red: 0.1, green: 0.2, blue: 0.45), location: 0.3),
+                    .init(color: Color(red: 0.76, green: 0.15, blue: 0.26), location: 0.3)
+                ], center: .top, startRadius: 200, endRadius: 700)
+                .ignoresSafeArea()
                 
-                Text("Guess the Location")
-                    .font(.largeTitle.bold())
-                    .foregroundColor(.white)
-                
-                VStack(spacing: 15) {
-                    VStack {
-                        Text("Tap the location of")
-                            .foregroundStyle(.secondary)
-                            .font(.subheadline.weight(.heavy))
-                        
-                        Text(locations[correctAnswer])
-                            .font(.largeTitle.weight(.semibold))
-                    }
-                    ZStack {
-                        Map(coordinateRegion: $region, annotationItems: mapLocations) { location in
-                            MapMarker(coordinate: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude))
-                        }
-                        .ignoresSafeArea()
-                        Circle()
-                            .fill(.blue)
-                            .opacity(0.3)
-                            .frame(width: 32, height: 32)
+                VStack {
+                    Spacer()
+                    
+                    Text("Guess the Location")
+                        .font(.largeTitle.bold())
+                        .foregroundColor(.white)
+                    
+                    VStack(spacing: 15) {
                         VStack {
-                            Spacer()
-                            HStack {
+                            Text("Tap the location of")
+                                .foregroundStyle(.secondary)
+                                .font(.subheadline.weight(.heavy))
+                            
+                            Text(locations[correctAnswer])
+                                .font(.largeTitle.weight(.semibold))
+                        }
+                        ZStack {
+                            Map(coordinateRegion: $region, annotationItems: mapLocations) { location in
+                                MapMarker(coordinate: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude))
+                            }
+                            .ignoresSafeArea()
+                            Circle()
+                                .fill(.blue)
+                                .opacity(0.3)
+                                .frame(width: 32, height: 32)
+                            VStack {
                                 Spacer()
-                                Button {
-                                    let newLocation = Location(id: UUID(), name: "New location", description: "", latitude: region.center.latitude, longitude: region.center.longitude)
-                                    addLocation(newLocation: newLocation)
-                                    self.locationPlaced = true
-                                } label: {
-                                    Image(systemName: "plus")
+                                HStack {
+                                    Spacer()
+                                    Button {
+                                        let newLocation = Location(id: UUID(), name: "New location", description: "", latitude: region.center.latitude, longitude: region.center.longitude)
+                                        addLocation(newLocation: newLocation)
+                                        self.locationPlaced = true
+                                    } label: {
+                                        Image(systemName: "plus")
+                                    }
+                                    .padding()
+                                    .background(.black.opacity(0.75))
+                                    .foregroundColor(.white)
+                                    .font(.title)
+                                    .clipShape(Circle())
+                                    .padding(.trailing)
                                 }
-                                .padding()
-                                .background(.black.opacity(0.75))
-                                .foregroundColor(.white)
-                                .font(.title)
-                                .clipShape(Circle())
-                                .padding(.trailing)
                             }
                         }
-                    }
-                    
-                    if !self.shouldHide{
-                        Button(action: {verify(scoreCount: scoreCount, score: score); if locationPlaced {numGuesses += 1};}){
-                            Text("Confirm")
-                                .padding()
-                                .font(.subheadline)
-                                .foregroundColor(.white)
-                                .background(Color.blue)
-                                .cornerRadius(30)
+                        
+                        if !self.shouldHide{
+                            Button(action: {verify(scoreCount: scoreCount, score: score); if locationPlaced {numGuesses += 1};}){
+                                Text("Confirm")
+                                    .padding()
+                                    .font(.subheadline)
+                                    .foregroundColor(.white)
+                                    .background(Color.blue)
+                                    .cornerRadius(30)
+                            }
                         }
-                    }
-                    else{
-                        Button(action: {self.shouldHide = false; }){
-                            Text("New Round")
-                                .padding()
-                                .font(.subheadline)
-                                .foregroundColor(.white)
-                                .background(Color.blue)
-                                .cornerRadius(30)
+                        else{
+                            Button(action: {self.shouldHide = false; }){
+                                Text("New Round")
+                                    .padding()
+                                    .font(.subheadline)
+                                    .foregroundColor(.white)
+                                    .background(Color.blue)
+                                    .cornerRadius(30)
+                            }
                         }
+                        
+                        
+                        Text("Round Number: \(roundNumber) ")
+                            .bold()
+                        Text("Guesses: \(numGuesses) ")
+                        
+                        
                     }
-                    
-                    
-                    Text("Round Number: \(roundNumber) ")
-                        .bold()
-                    Text("Guesses: \(numGuesses) ")
-                    
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 20)
+                    .background(.regularMaterial)
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
                     
                 }
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, 20)
-                .background(.regularMaterial)
-                .clipShape(RoundedRectangle(cornerRadius: 20))
                 
+                .padding()
             }
-            
-            .padding()
-        }
-        .alert(scoreTitle, isPresented: $showingScore) {
-            Button("Continue", action: askQuestion)
-        } message: {
-            Text("Your score is \(scoreTitle)")
+            .alert(scoreTitle, isPresented: $showingScore) {
+                Button("Continue", action: askQuestion)
+            } message: {
+                Text("Your score is \(scoreTitle)")
+            }
         }
     }
+    
     
     
     func addLocation(newLocation: Location) {
@@ -176,6 +180,7 @@ struct ContentView: View {
         self.scoreCount = 0
         self.numGuesses = -1
         self.score.removeAll()
+        self.isGameOver = true
     }
     
     func verify(scoreCount: Int, score: [Int]){
@@ -191,7 +196,7 @@ struct ContentView: View {
             if numGuesses >= 2 && roundNumber <= 4{
                 newRound()
             }
-            else if roundNumber >= 5{
+            else if roundNumber >= 2{
                 gameOver()
             }
             else{
