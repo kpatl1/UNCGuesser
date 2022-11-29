@@ -98,7 +98,7 @@ struct ContentView: View {
                                 .cornerRadius(30)
                         }
                  
-                        Text("Total Score: \(roundNumber) ")
+                        Text("Round Number: \(roundNumber) ")
                             .bold()
                         Text("Guesses: \(numGuesses) ")
                         if savedScore.count > 0 {
@@ -116,7 +116,7 @@ struct ContentView: View {
             .alert("Way to go Tarheel!", isPresented: $showingScore) {
                 Button("Continue Exploring", action: askQuestion)
             } message: {
-                Text("Your Score is \(roundNumber)!")
+                Text("Your Score is \(scoreTitle)!")
             }
         }
     }
