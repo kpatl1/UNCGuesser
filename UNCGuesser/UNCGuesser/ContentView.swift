@@ -18,16 +18,15 @@ struct ContentView: View {
     @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 35.9, longitude: -79.05), span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02))
     @State private var shownLocations = [String]()
     @State var mapLocations = [Location]()
-    @State var score = [Int]()
     @State var scoreCount = 0
     @State var roundNumber = 1
     @State var numGuesses = 0
     @State var shouldHide = false
     @State var locationPlaced = false
     @State var isGameOver = false
-    
-    
-    
+    @State var score = [Int]()
+    @State var savedScore = UserDefaults.standard.object(forKey: "scoreArray") as? [Int] ?? [Int]()
+    @State var buttonState = "Confirm"
     var body: some View {
         NavigationStack{
             ZStack {
@@ -83,31 +82,21 @@ struct ContentView: View {
                             }
                         }
                         
-                        if !self.shouldHide{
-                            Button(action: {verify(scoreCount: scoreCount, score: score); if locationPlaced {numGuesses += 1};}){
-                                Text("Confirm")
-                                    .padding()
-                                    .font(.subheadline)
-                                    .foregroundColor(.white)
-                                    .background(Color.blue)
-                                    .cornerRadius(30)
-                            }
+                        Button(action: {verify(scoreCount: scoreCount, score: score); if locationPlaced {numGuesses += 1};}){
+                            Text(buttonState)
+                                .padding()
+                                .font(.subheadline)
+                                .foregroundColor(.white)
+                                .background(Color.blue)
+                                .cornerRadius(30)
                         }
-                        else{
-                            Button(action: {self.shouldHide = false; }){
-                                Text("New Round")
-                                    .padding()
-                                    .font(.subheadline)
-                                    .foregroundColor(.white)
-                                    .background(Color.blue)
-                                    .cornerRadius(30)
-                            }
-                        }
-                        
-                        
+                 
                         Text("Round Number: \(roundNumber) ")
                             .bold()
                         Text("Guesses: \(numGuesses) ")
+                        if savedScore.count > 0 {
+                            Text("High Score: \(savedScore.max() ?? 0)")
+                        }
                         
                         
                     }
@@ -139,12 +128,16 @@ struct ContentView: View {
     
     func locationTapped() {
         
-        if numGuesses >= 2{
+        if self.numGuesses > 3{
             showingScore = false
         }
         else{
             scoreTitle = String(score[scoreCount-1])
             showingScore = true
+            //change button text
+            if self.numGuesses == 2 {
+                self.buttonState = "New Round"
+            }
         }
         
     }
@@ -165,13 +158,21 @@ struct ContentView: View {
     }
     
     
-    func newRound(){
+    func newRound(roundNumber: Int){
+        var totalScore = 0
         self.shouldHide = true
         self.scoreCount = 0
         self.numGuesses = -1
         self.roundNumber += 1
+        //save average score for next game
+        for scores in self.score {
+            totalScore += scores
+        }
+        self.savedScore.append(totalScore/self.score.count)
+        UserDefaults.standard.set(self.savedScore, forKey: "scoreArray")
         self.score.removeAll()
         self.shownLocations.removeAll()
+        self.buttonState = "Continue"
         
     }
     
@@ -188,16 +189,13 @@ struct ContentView: View {
         //make sure locations array has a value
         if mapLocations.count != 0 {
             self.scoreCount+=1
-            print(locationsDict[locations[correctAnswer]]![0])
-            print(locationsDict[locations[correctAnswer]]![1])
-            
             let lat = (1000*(abs(mapLocations[0].latitude - locationsDict[locations[correctAnswer]]![0])))
             let long = (1000*(abs(mapLocations[0].longitude - locationsDict[locations[correctAnswer]]![1])))
             self.score.append(Int(100-(lat+long)/2))
-            if numGuesses >= 2 && roundNumber <= 4{
-                newRound()
+            if numGuesses >= 3 && roundNumber <= 4{
+                newRound(roundNumber: roundNumber)
             }
-            else if roundNumber >= 2{
+            else if roundNumber > 2{
                 gameOver()
             }
             else{
