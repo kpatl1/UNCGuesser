@@ -14,7 +14,6 @@
 		0386EFD8292D832E002A232A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0386EFD7292D832E002A232A /* ContentView.swift */; };
 		0386EFDA292D832F002A232A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0386EFD9292D832F002A232A /* Assets.xcassets */; };
 		0386EFDD292D832F002A232A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0386EFDC292D832F002A232A /* Preview Assets.xcassets */; };
-		A68C51F82935E90700FF2992 /* RoundOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A68C51F72935E90700FF2992 /* RoundOverView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,7 +25,6 @@
 		0386EFD7292D832E002A232A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		0386EFD9292D832F002A232A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0386EFDC292D832F002A232A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		A68C51F72935E90700FF2992 /* RoundOverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundOverView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,7 +61,6 @@
 				030453D629354A8000058684 /* Location.swift */,
 				0386EFD5292D832E002A232A /* UNCGuesserApp.swift */,
 				0386EFD7292D832E002A232A /* ContentView.swift */,
-				A68C51F72935E90700FF2992 /* RoundOverView.swift */,
 				0386EFD9292D832F002A232A /* Assets.xcassets */,
 				0386EFDB292D832F002A232A /* Preview Content */,
 				030453D42935491600058684 /* MapView.swift */,
@@ -152,7 +149,6 @@
 				0386EFD8292D832E002A232A /* ContentView.swift in Sources */,
 				030453D52935491600058684 /* MapView.swift in Sources */,
 				030453D729354A8000058684 /* Location.swift in Sources */,
-				A68C51F82935E90700FF2992 /* RoundOverView.swift in Sources */,
 				0386EFD6292D832E002A232A /* UNCGuesserApp.swift in Sources */,
 				0303B2B529367F5A0051F0ED /* Utils.swift in Sources */,
 			);
