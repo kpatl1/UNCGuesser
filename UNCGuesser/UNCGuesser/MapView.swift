@@ -5,8 +5,8 @@
 //  Created by Josh Myatt on 11/28/22.
 //
 
-import SwiftUI
 import MapKit
+import SwiftUI
 
 struct MapView: View {
     @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 35.9, longitude: -79.05), span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02))
@@ -41,18 +41,15 @@ struct MapView: View {
                 }
             }
         }
-
     }
-    
+
     func addLocation(newLocation: Location) {
-        if mapLocations.count != 0{
+        if mapLocations.count != 0 {
             mapLocations = []
         }
         mapLocations.append(newLocation)
     }
 }
-
-
 
 struct MapView_Previews: PreviewProvider {
     static var previews: some View {

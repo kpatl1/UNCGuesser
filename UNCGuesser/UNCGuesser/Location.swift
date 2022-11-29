@@ -15,5 +15,5 @@ struct Location: Identifiable, Codable, Equatable {
 }
 
 extension Location {
-    static var def = Location(id: UUID(), name:"Default", description:"Default", latitude: 35.8, longitude:-79.01)
+    static var def = Location(id: UUID(), name: "Default", description: "Default", latitude: 35.8, longitude: -79.01)
 }
