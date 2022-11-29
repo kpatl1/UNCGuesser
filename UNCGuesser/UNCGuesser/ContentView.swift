@@ -136,13 +136,15 @@ struct ContentView: View {
     }
     
     func askQuestion() {
-        self.utils.locations.shuffle()
-        if self.utils.locations.count != self.shownLocations.count {
+        utils.locations.shuffle()
+        if utils.locations.count != self.shownLocations.count {
             let tempAnswer = Int.random(in: 0...2)
-            if self.shownLocations.contains(self.utils.locations[tempAnswer]) {
+            if self.shownLocations.contains(utils.locations[tempAnswer]) {
                 self.askQuestion()
             }
-            self.correctAnswer = tempAnswer
+            else{
+                self.correctAnswer = tempAnswer
+            }
         }
         else {
             self.utils.locations.shuffle()
@@ -163,7 +165,6 @@ struct ContentView: View {
         self.savedScore.append(totalScore/self.score.count)
         UserDefaults.standard.set(self.savedScore, forKey: "scoreArray")
         self.score.removeAll()
-        self.shownLocations.removeAll()
         self.buttonState = "Confirm"
     }
     
