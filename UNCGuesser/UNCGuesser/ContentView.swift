@@ -17,7 +17,7 @@ struct ContentView: View {
     @State var shownLocations = [String]()
     @State var mapLocations = [Location]()
     @State var scoreCount = 0
-    @State var roundNumber = 1
+    @State var roundNumber = 0
     @State var numGuesses = 0
     @State var shouldHide = false
     @State var locationPlaced = false
@@ -37,7 +37,9 @@ struct ContentView: View {
                     .ignoresSafeArea()
                 
                 VStack {
-                    Spacer()
+                    Image("TuitionTrackerLogo")
+                        .resizable()
+                        .frame(width: 104, height: 134)
                     
                     Text("Guess the Location")
                         .font(.largeTitle.bold())
@@ -45,7 +47,7 @@ struct ContentView: View {
                     
                     VStack(spacing: 15) {
                         VStack {
-                            Text("Tap the location of")
+                            Text("Tap the Location of...")
                                 .foregroundStyle(.secondary)
                                 .font(.subheadline.weight(.heavy))
                             
@@ -54,7 +56,12 @@ struct ContentView: View {
                         }
                         ZStack {
                             Map(coordinateRegion: $region, annotationItems: mapLocations) { location in
-                                MapMarker(coordinate: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude))
+                                MapAnnotation(coordinate: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)) {
+                                        Image("UNCRamsesLogo")
+                                            .resizable()
+                                            .frame(width: 44, height:44)
+                                            .clipShape(Circle())
+                                }
                             }
                             .ignoresSafeArea()
                             Circle()
@@ -91,11 +98,11 @@ struct ContentView: View {
                                 .cornerRadius(30)
                         }
                  
-                        Text("Round Number: \(roundNumber) ")
+                        Text("Total Score: \(roundNumber) ")
                             .bold()
                         Text("Guesses: \(numGuesses) ")
                         if savedScore.count > 0 {
-                            Text("High Score: \(savedScore.max() ?? 0)")
+                            Text("High Score: \(savedScore.max() ?? roundNumber)")
                         }
                     }
                     .frame(maxWidth: .infinity)
@@ -106,10 +113,10 @@ struct ContentView: View {
                 
                 .padding()
             }
-            .alert(scoreTitle, isPresented: $showingScore) {
-                Button("Continue", action: askQuestion)
+            .alert("Way to go Tarheel!", isPresented: $showingScore) {
+                Button("Continue Exploring", action: askQuestion)
             } message: {
-                Text("Your score is \(scoreTitle)")
+                Text("Your Score is \(roundNumber)!")
             }
         }
     }
