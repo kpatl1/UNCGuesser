@@ -164,7 +164,7 @@ struct ContentView: View {
         UserDefaults.standard.set(self.savedScore, forKey: "scoreArray")
         self.score.removeAll()
         self.shownLocations.removeAll()
-        self.buttonState = "Continue"
+        self.buttonState = "Confirm"
     }
     
     func gameOver() {
